@@ -20,7 +20,7 @@ class Tareas {
 
     crearTarea(desc = ''){
         const tarea = new Tarea(desc);
-        this._listado[tarea.id] = tarea; 
+        return tarea
     }
 
     upDateTarea(arrOption){
@@ -34,12 +34,10 @@ class Tareas {
         })
     }
 
-    deleteTarea(arrOption,arrDb){
-        console.log(arrDb);
-        const arr = arrOption.map(tarea=>{
-            return arrDb.filter(value=>value.id !== tarea)
-        })
-        return arr[0];     
+    deleteTarea(idOption,arrDb){
+        const index = arrDb.findIndex(value=>value.id === idOption); 
+        arrDb.splice(index,1);         
+        return arrDb;     
     }
 }
 

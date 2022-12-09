@@ -22,7 +22,11 @@ const main = async()=>{
                 const desc = await leerInput('descripcion: ');
                 console.log(desc);
                 //Se crea lista
-                tareas.crearTarea(desc)
+                const archivoCrear ='./db/data.json'
+                const arrdbCrear = JSON.parse(fs.readFileSync(archivoCrear,'utf-8'));
+                let task = tareas.crearTarea(desc)
+                arrdbCrear.push(task)
+                guardar(arrdbCrear)
                 break;
         
             case '2':
@@ -62,10 +66,14 @@ const main = async()=>{
                 break
             case '6':
                 const archivoDelete ='./db/data.json'
-                const arrnewDelete = fs.readFileSync(archivoDelete,'utf-8');
-                let resOpcionBorrar = await listaOptionBorrar(JSON.parse(arrnewDelete));
-                const arrFinal= tareas.deleteTarea(resOpcionBorrar,JSON.parse(arrnewDelete));
-                guardar(arrFinal)
+                const arrnewDelete = JSON.parse(fs.readFileSync(archivoDelete,'utf-8'));
+                let resOpcionBorrar = await listaOptionBorrar(arrnewDelete);
+                for (let index = 0; index < resOpcionBorrar.length; index++) {
+                    const element = resOpcionBorrar[index];
+                    const arrFinal= await tareas.deleteTarea(element,arrnewDelete);
+                     
+                    guardar(arrFinal);                   
+                }                
                 break
             case '7':
                 break
