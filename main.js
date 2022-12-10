@@ -39,8 +39,8 @@ const main = async()=>{
                 
             case '3':
                 const archivoCompletado ='./db/data.json'
-                const arrnewCompletado = fs.readFileSync(archivoCompletado,'utf-8');
-                JSON.parse(arrnewCompletado).forEach(value=>{
+                const arrnewCompletado = JSON.parse(fs.readFileSync(archivoCompletado,'utf-8'));
+                arrnewCompletado.forEach(value=>{
                     let validate = value.completado;
                     if (validate==='true') {
                        console.log(value); 
@@ -50,19 +50,20 @@ const main = async()=>{
                 break
             case '4':
                 const archivoPendiente ='./db/data.json'
-                const arrnewPendiente = fs.readFileSync(archivoPendiente,'utf-8');
-                JSON.parse(arrnewPendiente).forEach(value=>{
+                const arrnewPendiente = JSON.parse(fs.readFileSync(archivoPendiente,'utf-8'));
+                arrnewPendiente.forEach(value=>{
                     let validate = value.completado;
                     if (validate === 'false') {   
                        console.log(value); 
                     }
                 });
+                guardar(arrnewPendiente); 
                 break
             case '5':
                 const archivoUpDate ='./db/data.json'
-                const arrnewUpDate = fs.readFileSync(archivoUpDate,'utf-8');
-                let resOpcion = await listaTareaOption(JSON.parse(arrnewUpDate));
-                tareas.upDateTarea(resOpcion);
+                const arrnewUpDate = JSON.parse(fs.readFileSync(archivoUpDate,'utf-8'));
+                let resOpcion = await listaTareaOption(arrnewUpDate);
+                tareas.upDateTarea(resOpcion,arrnewUpDate);
                 break
             case '6':
                 const archivoDelete ='./db/data.json'

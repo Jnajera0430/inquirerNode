@@ -23,14 +23,14 @@ class Tareas {
         return tarea
     }
 
-    upDateTarea(arrOption){
+    upDateTarea(arrOption,arrDB){
         arrOption.forEach(value=>{
-            this.listadoArr.forEach(tarea=>{
+            arrDB.forEach(tarea=>{
                 if (value === tarea.id) {
                     tarea.completado = "true";
                 }
             })
-            guardar(this.listadoArr)
+            guardar(arrDB)
         })
     }
 
